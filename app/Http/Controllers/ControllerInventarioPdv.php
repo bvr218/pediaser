@@ -23,14 +23,21 @@ class ControllerInventarioPdv extends Controller
     public function getProductos(Request $request){
         $productos;
         if(empty($request->input("hint")) || is_null($request->input("hint"))){
-            $productos = DB::table("productos")
-                            ->where("categoria","=",$request->input("id"))
+            $productos = DB::table("almacen")
                             ->get();
         }else{
-            $productos = DB::table("productos")
-                            ->where("nombre","LIKE","%".$request->input("hint")."%")
+            $productos = DB::table("almacen")
+                            ->where("producto","LIKE","%".$request->input("hint")."%")
+                            ->orWhere("codigo","LIKE","%".$request->input("hint")."%")
                             ->get();
         }
         return json_encode($productos);
+    }
+    public function getProductoById(Request $request){
+        $producto = DB::table("almacen")
+                            ->where("codigo","=",trim($request->input("hint")))
+                            ->first();
+
+        return json_encode($producto);
     }
 }

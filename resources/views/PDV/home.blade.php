@@ -1,4 +1,4 @@
-<div class="container">
+<div style="width:100%">
   <div class="border border-dark">
     <button type="button" class="btn btn-default">M. venta</button>
     <button type="button" class="btn btn-default">M. clientes</button>
@@ -10,18 +10,31 @@
     </h1>
   </div>
   <div class="border border-dark bg-light">
-    <form action="POST">
+    <form id="add-product" method="post" action="/">
+      @csrf
       <div class="row d-flex">
         <div class="col-md-9">
           <div class="input-group">
-            <span class="input-group-addon">Código producto<i class="glyphicon glyphicon-list-alt"></i></span>
-            <input type="text" id="n_facturas" class="form-control" />
+            <span class="input-group-addon">Código producto <i class="fa fa-barcode ml-1"></i></span>
+            <span class="select2-container select2-container--default select2-container--open" style="position: relative;">
+              <span class="select2-dropdown select2-dropdown--below" dir="ltr" style="width: 660.266px;">
+                <span class="select2-search select2-search--dropdown m-0 p-0">
+                    <input id="n-facturas" class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" aria-controls="select2-n_facturas-results">
+                  </span>
+                  <span class="select2-results d-none">
+                    <ul class="select2-results__options" role="listbox" id="select2-n_facturas-results" aria-expanded="true" aria-hidden="false">
+                      
+                    </ul>
+                  </span>
+                </span>
+              </span>
+            </select>
           </div>
         </div>
         <div class="col-md-3 d-flex align-items-end">
           <div class="w-100">
-            <button type="button" class="btn btn-success">
-              Enter - agregar producto <i class="glyphicon glyphicon-plus-sign"></i>
+            <button type="submit" class="btn btn-success">
+              Enter - agregar producto <i class="fa fa-plus-circle"></i>
             </button>
           </div>
         </div>
@@ -49,22 +62,12 @@
       </div>
 
       <div class="mt-3">
-        <div class="border border-dark bg-danger">
-          <div class="bg-primary text-white pr-2 pl-2">
-            <h2>
-              Datos <i class="glyphicon glyphicon-list-alt"></i>
-            </h2>
-          </div>
-          <div class="input-group pt-2 pb-3 pr-1 pl-1">
-            <input type="text" id="buscador_punto-venta" class="form-control" />
-            <button type="button" class="btn btn-warning">Buscar</button>
-          </div>
-        </div>
+        
         <div style="max-height: 300px; overflow-y: auto">
-          <table class="table table-striped">
+          <table style="width:100%" id="table_productos"  class="table table-striped">
             <thead>
               <tr>
-                <th>Cod. de barras</th>
+                <th>Cod.</th>
                 <th>Descripción del producto</th>
                 <th>Precio venta</th>
                 <th>Cantidad</th>
@@ -72,71 +75,8 @@
                 <th>Existencia</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
-              <tr>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-                <td>hola</td>
-              </tr>
+            <tbody  style="max-height:400px" >
+              
             </tbody>
           </table>
         </div>

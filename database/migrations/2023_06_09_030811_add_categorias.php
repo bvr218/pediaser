@@ -42,6 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         DB::table('categorias')->whereIn('codigo', ['ANA', 'ANT', 'ANTINF', 'ANTHIST', 'ANTIB', 'ANTIV', 'ANTIF', 'ANTIPAR', 'ANTIDEP', 'ANTIPSI', 'ANTIHIP', 'DIUR', 'ANTICOAG', 'AAP', 'DIAB', 'TIRO', 'RESP', 'CARDIO', 'GI', 'SUEÑO'])->delete();
-        DB::statement("ALTER TABLE `productos` DROP COLUMN IF EXISTS `marca`");
+       
     }
 };

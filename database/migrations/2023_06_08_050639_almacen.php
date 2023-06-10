@@ -24,7 +24,8 @@ return new class extends Migration
             `lote` varchar(100) NOT NULL,
             `vencimiento` datetime NOT NULL,
             `cantidad` varchar(100) NOT NULL,
-            `producto` int(100) NOT NULL
+            `producto` varchar(200) NOT NULL,
+            `codigo` varchar(100) NOT NULL
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
         ");
         DB::statement("

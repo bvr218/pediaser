@@ -9,7 +9,7 @@
 @section("user_role",$clinica['niveles'][Auth::user()->level])
  
 @section("content")
-    <div id="content" class="content" style="height: 100%; overflow:hidden;">
+    <div id="content" class="content" style="height: 100%; overflow:scroll;">
         @include($directory)
     </div>
 @stop

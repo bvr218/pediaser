@@ -47,6 +47,7 @@ Route::group(["middleware"=>"auth"],function(){
         Route::get("/home",[ControllerHomePdv::class, "home"])->name("PDV.home");
         Route::get("/inventario",[ControllerInventarioPdv::class, "inventario"])->name("PDV.inventario");
         Route::post("/productos",[ControllerInventarioPdv::class, "getProductos"])->name("PDV.post.getproductos");
+        Route::post("/productoById",[ControllerInventarioPdv::class, "getProductoById"])->name("PDV.post.getproductoById");
     });
 
 

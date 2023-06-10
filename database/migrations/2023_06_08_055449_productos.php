@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement("DROP TABLE `productos`");
+        DB::statement("DROP TABLE IF EXISTS `productos`");
     }
 };

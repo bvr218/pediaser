@@ -27,3 +27,19 @@
 <link href="../css/extra.css?t=1686105396" rel="stylesheet" />
 
 <script src="../plugins/pace/pace.min.js"></script>
+<style>
+    .select2-results__option:hover{
+        background: #f2f3f4;
+        color: #2d353c;
+    }
+    #table_productos_wrapper {
+        max-width: 98%;
+        padding-left:1%;
+    }
+    #table_productos>thead>tr>th{
+        border:1px solid #ccc
+    }
+    #table_productos>tbody{
+        border:1px solid #ccc
+    }
+</style>

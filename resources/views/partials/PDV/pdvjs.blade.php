@@ -74,38 +74,134 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.min.js" integrity="sha512-J9kWigtolF+Ur3ozrZwj18sLPTeAFNiwLxFHaXtmjKao7MZ1g3UWnTn8y1ChS48V2JM7ErQV2r1uMeMaplN+EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     let productos = [];
-    function changeCategoria(id){
-        hint = $("#searchcliente").val();
+    //$("#table_productos").DataTable();
+    $('#n-facturas').on('input', function() {
+        hint = $('#n-facturas').val();
+        if(hint.length >= 3){
+            $(".select2-results").removeClass("d-none");
+            var csrfToken = '{{ csrf_token() }}';
+            $.post({
+                url:"{{route('PDV.post.getproductos')}}",
+                data:{
+                    _token: csrfToken,
+                    hint
+                },
+                dataType: 'json',
+                success: function(response) {
+                    let productos = "";
+                    if(response.length>0){
+                        for(let i = 0; i < response.length; i++){
+                            productos += `
+                                <li class="select2-results__option" role="option" aria-selected="false" onClick="changeCodigo('${response[i].codigo}')"> ${response[i].producto}</li>
+                            `
+                        }
+                    }else{
+                        productos = `<li role="alert" aria-live="assertive" class="select2-results__option select2-results__message">Ningún registro</li>`;
+                    }
+                    
+                    $(".select2-results__options").html(productos);
+
+                  
+                    
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            })
+        }else{
+            $(".select2-results").addClass("d-none");
+        }
+    });
+
+
+    $('#n-facturas').on('blur', function() {
+        setTimeout(() => {
+            $(".select2-results").addClass("d-none");
+        }, 200);
+    });
+
+    $("#add-product").on("submit",function(e){
+        e.preventDefault()
+        hint = $('#n-facturas').val();
         var csrfToken = '{{ csrf_token() }}';
         $.post({
-            url:"{{route('PDV.post.getproductos')}}",
+            url:"{{route('PDV.post.getproductoById')}}",
             data:{
                 _token: csrfToken,
-                hint,
-                id
+                hint
             },
             dataType: 'json',
             success: function(response) {
-                let productos = "";
-                for(let i = 0; i < response.length; i++){
-                    productos += `
-                    <li style="height: 50px;width: 103%;padding-left: 10px; margin-bottom:3px;" class="row ml-0 border-left mr-0 bg-success rounded">
-                        <div class="col-3" style="left: -8px;position: relative;height: 46px;background-size: cover;background-repeat: no-repeat;width: 48px;border-radius: 100%;background-image: url('/${response[i].imagen}');">
-                        </div>
-                        <div style="height: 100%;" class="col-9 pr-2">
-                            <p class="m-auto font-weight-bold text-truncate">${response[i].nombre}</p>
-                            <small class="font-weight-bold">(${response[i].marca})</small>
-                        </div>
-                    </li>
-                    `
+                var datosExistentes = table_productos.data().toArray();
+                var duplicado = datosExistentes.some(function(dato) {
+                    return dato.cod === response.codigo;
+                });
+
+                if(response?.id!=undefined && !duplicado){
+                    table_productos.row.add({
+                                            "cod":response.codigo,
+                                            "descripcion":response.producto,
+                                            "precio":response.valor,
+                                            "cantidad":"<input value='1' id='"+response.codigo+"' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"\")' max='"+response.cantidad+"' style='max-width:50px'>",
+                                            "impuesto":response.iva,
+                                            "existencia":response.cantidad
+                                            }).draw();
+                    
+                }else{
+                    if(duplicado){
+                        alerta("error","Ya agrego este producto")
+                    }else{
+
+                        alerta("error","No existe ningun producto con ese codigo")
+                    }
                 }
-                $("#productos").html(productos);
-                
             },
             error: function(xhr) {
-                // Manejar errores
                 console.log(xhr.responseText);
             }
         })
+    })
+
+    function validaMax(max,codigo){
+        max = parseInt(max)
+        valor = parseInt($("#"+codigo).val())
+        if(valor<=0){
+            $("#"+codigo).css("color","red")
+            $("#"+codigo).css("border","1px solid red")
+        }else{
+            if(valor>max){
+                $("#"+codigo).css("color","red")
+                $("#"+codigo).css("border","1px solid red")
+            }else{
+                $("#"+codigo).css("color","black")
+                $("#"+codigo).css("border","1px solid black")
+            }
+        }
+
     }
+
+    function changeCodigo(codigo) {
+        $('#n-facturas').val(codigo);
+    }
+    let table_productos = $("#table_productos").DataTable({
+        lengthChange: false,
+        paging: false,
+        scrollX: false,
+        info:false,
+        "aoColumns": [
+            { mData: 'cod',sWidth:'40px'},
+            { mData: 'descripcion'},
+            { mData: 'precio',sWidth:'80px'/*sClass: 'text-center'*/},
+            { mData: 'cantidad',sWidth:'40px'},
+            { mData: 'impuesto',visible:false},
+            { mData: 'existencia',sWidth:'40px'}
+        ],
+        initComplete:function(){
+            $("#table_productos_filter").prepend("<label>Buscar producto</label>")
+        }
+    });
+    
+
+
+  
 </script>
