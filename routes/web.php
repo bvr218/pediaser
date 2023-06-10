@@ -22,11 +22,11 @@ use App\Http\Controllers\ControllerInventarioPdv;
 |
 */
 
-Route::get('/', function () {
-    return "Initial";
-});
 
 Route::group(["middleware"=>"guest"],function(){
+    Route::get('/', function () {
+        return "Initial";
+    });
     Route::get("/login",[ControllerRedirect::class, 'login'])->name("login");
     Route::post("/login",[ControllerRedirect::class, 'postLogin']);
 
