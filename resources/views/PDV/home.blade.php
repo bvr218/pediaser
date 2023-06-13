@@ -538,7 +538,7 @@
 </div> -->
 
 <!-- INVENTARIO -->
-<!-- <div class="container bg-light p-0">
+<div class="container bg-light p-0">
   <div class="bg-primary text-white">
     <h2 class="p-2">Módulo de Control de Inventario de Medicamentos</h2>
   </div>
@@ -598,186 +598,175 @@
     </div>
   </div>
 
-  <div class="mt-3 ml-2 mr-2" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); display: grid; max-height: 721px; overflow-y: auto;">
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+  <div class="m-3">
+    <div style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); display: grid; max-height: 721px; overflow-y: auto; gap: 15px; padding: 1rem;">
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
           </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="product-container">
+          <div class="mt-2">
+            <h4>Medicamento 2</h4>
+            <div class="product-description">
+              Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+            </div>
+            <p class="mb-0"><strong>Cantidad:</strong> 8</p>
+            <p><strong>Precio*:1</strong> 1200</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 1" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 2" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
-    </div>
-    <div class="">
-      <div class="product-container">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/200x200" alt="Medicamento 3" class="img-responsive m-xs-auto m-sm-0 m-md-0 rounded">
-        </div>
-        <div class="mt-2">
-          <h4>Medicamento 2</h4>
-          <div class="product-description">
-            Aenean eu diam odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-          </div>
-          <p class="mb-0"><strong>Cantidad:</strong> 8</p>
-          <p><strong>Precio*:1</strong> 1200</p>
-        </div>
-      </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <i class="fa fa-arrow-circle-left mr-2" style="font-size: 20px;"></i>
+      <h2>1</h2>
+      <i class="fa fa-arrow-circle-right ml-2" style="font-size: 20px;"></i>
     </div>
   </div>
-</div> -->
+</div>
+
+<style>
+  .product-container {
+    margin: 1rem 0;
+  }
+
+  .card {
+    border: 1px solid gray;
+    transition: .25s ease;
+    box-shadow: 1px 1px 2px 1px #348fe2;
+    text-align: center;
+  }
+
+  .card:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 1px #348fe2;
+  }
+</style>
