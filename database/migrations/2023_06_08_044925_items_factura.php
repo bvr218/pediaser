@@ -16,7 +16,8 @@ return new class extends Migration
                 `id` int(11) NOT NULL,
                 `factura_unique` varchar(100) NOT NULL,
                 `tipo` varchar(100) NOT NULL DEFAULT 'servicio',
-                `id_elemento` int(10) NOT NULL
+                `id_elemento` varchar(100) NOT NULL,
+                `cantidad` int(10) NOT NULL
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
             ");
         DB::statement("ALTER TABLE `items_factura`
@@ -24,6 +25,9 @@ return new class extends Migration
 
         DB::statement("ALTER TABLE `items_factura`
         MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;");
+         DB::statement("
+         ALTER TABLE `items_factura` ADD `precio_venta` VARCHAR(100) NOT NULL AFTER `id_elemento`;
+     ");
     }
 
     /**

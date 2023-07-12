@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE TABLE `pediaser`.`categorias` (
+        DB::statement("CREATE TABLE `categorias` (
             `id` INT NOT NULL AUTO_INCREMENT , 
             `categoria` VARCHAR(100) NOT NULL , 
-            `imagen` VARCHAR(200) NOT NULL , PRIMARY KEY (`id`)
+            `imagen` TEXT NOT NULL , 
+            `codigo` VARCHAR(100) NOT NULL , 
+            PRIMARY KEY (`id`)
             ) ENGINE = InnoDB;");
     }
 

@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("
-            ALTER TABLE `items_factura` ADD `precio_venta` VARCHAR(100) NOT NULL AFTER `id_elemento`;
-        ");
+       
 
 
         DB::statement("
@@ -44,6 +42,5 @@ return new class extends Migration
     public function down(): void
     {
         DB::statement("DROP TABLE IF EXISTS `almacen`");
-        DB::statement("ALTER TABLE `items_factura` DROP COLUMN IF EXISTS `precio_venta`;");
     }
 };

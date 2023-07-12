@@ -1,23 +1,18 @@
-<script src="../plugins/jquery/jquery-3.2.1.min.js"></script>
-<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-<script src="../plugins/moment/moment.min.js"></script>
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js?v=6.56"></script>
-<script src="../js/app.js?v=6.56"></script>
-<script src="../plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
-<script type="text/javascript" src="../js/datatables.min.js?v=6.56"></script>
-<!--[if lt IE 9]>
-    <script src="crossbrowserjs/html5shiv.js"></script>
-    <script src="crossbrowserjs/respond.min.js"></script>
-    <script src="crossbrowserjs/excanvas.min.js"></script>
-<![endif]-->
-<script src="../plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../plugins/js-cookie/js.cookie.js"></script>
+<script src="{{asset('plugins/jquery/jquery-3.2.1.min.js')}}"></script>
+<script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js?v=6.56')}}"></script>
+<script src="{{asset('js/app.js?v=6.56')}}"></script>
+<script src="{{asset('plugins/jquery/jquery-migrate-1.1.0.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables.min.js?v=6.56')}}"></script>
+<script src="{{asset('plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+<script src="{{asset('plugins/js-cookie/js.cookie.js')}}"></script>
 
 
 <!-- ================== END BASE JS ================== -->
 
-<script src="../plugins/gritter/js/jquery.gritter.min.js"></script>
-<script type="text/javascript" src="../js/mikrowisp.js?v=6.56"></script>
+<script src="{{asset('plugins/gritter/js/jquery.gritter.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/mikrowisp.js?v=6.56')}}"></script>
 
 <script>
 $(document).ready(function() {

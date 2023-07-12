@@ -11,7 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("CREATE TABLE `pediaser`.`pacientes` (`id` INT NOT NULL AUTO_INCREMENT , `nombres` VARCHAR(100) NOT NULL , `apellidos` VARCHAR(100) NOT NULL , `identificacion` INT(100) NOT NULL , `tipo_identificacion` VARCHAR(40) NOT NULL , `fecha_nacimento` DATE NOT NULL , `genero` VARCHAR(20) NOT NULL , `registro` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+        DB::statement("CREATE TABLE `pediaser`.`pacientes` (
+                                                        `id` INT NOT NULL AUTO_INCREMENT , 
+                                                        `nombres` VARCHAR(100) NOT NULL , 
+                                                        `apellidos` VARCHAR(100) NOT NULL , 
+                                                        `telefono` INT(100) NOT NULL , 
+                                                        `fecha_nacimento` DATE NOT NULL , 
+                                                        `genero` VARCHAR(20) NOT NULL , 
+                                                        `registro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+                                                        PRIMARY KEY (`id`)) ENGINE = InnoDB;");
+
     }
     /**
      * Reverse the migrations.

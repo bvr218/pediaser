@@ -5,7 +5,7 @@
     <title>@yield("title")</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
     <meta content="" name="description">
-    <meta content={{$clinica['clinica']}} name="author">
+    <meta content="{{$clinica['clinica']}}" name="author">
     <link rel="shortcut icon" type="image/png" href="{{ asset($clinica['logo']) }}">
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
     @include("partials.PDV.pdvcss")
@@ -240,5 +240,5 @@
             });
         });
 </script>
-
+@yield("extrajs")
 </html>

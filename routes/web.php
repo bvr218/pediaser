@@ -9,6 +9,7 @@ use App\Http\Controllers\ControllerPacientes;
 //controllers pdv
 use App\Http\Controllers\ControllerRedirectPdv;
 use App\Http\Controllers\ControllerHomePdv;
+use App\Http\Controllers\ControllerClientesPdv;
 use App\Http\Controllers\ControllerInventarioPdv;
 
 /*
@@ -25,11 +26,10 @@ use App\Http\Controllers\ControllerInventarioPdv;
 
 Route::group(["middleware"=>"guest"],function(){
     Route::get('/', function () {
-        return "Initial";
+        return view("index");
     });
     Route::get("/login",[ControllerRedirect::class, 'login'])->name("login");
     Route::post("/login",[ControllerRedirect::class, 'postLogin']);
-
 });
 Route::group(["middleware"=>"auth"],function(){
     Route::delete("/logout",[ControllerRedirect::class, 'logout'])->name("logout");
@@ -45,9 +45,19 @@ Route::group(["middleware"=>"auth"],function(){
     Route::prefix("PDV")->group(function(){
         Route::get("/",[ControllerRedirectPdv::class, "initial"])->name("PDV");
         Route::get("/home",[ControllerHomePdv::class, "home"])->name("PDV.home");
+        Route::get("/clientes",[ControllerClientesPdv::class, "clientes"])->name("PDV.clientes");
+        Route::get("/venta",[ControllerVentaPdv::class, "venta"])->name("PDV.venta");
+        Route::get("/promocion",[ControllerPromocionPdv::class, "promocion"])->name("PDV.promocion");
+        Route::get("/modificarProducto",[ControllerModificarProductoPdv::class, "venta"])->name("PDV.modificarProducto");
+        Route::get("/eliminarProducto",[ControllerEliminarProductoPdv::class, "venta"])->name("PDV.eliminarProducto");
+        Route::get("/departamento",[ControllerDepartamentoPdv::class, "venta"])->name("PDV.departamento");
         Route::get("/inventario",[ControllerInventarioPdv::class, "inventario"])->name("PDV.inventario");
         Route::post("/productos",[ControllerInventarioPdv::class, "getProductos"])->name("PDV.post.getproductos");
+        Route::post("/getclientes",[ControllerInventarioPdv::class, "getclientes"])->name("PDV.post.getclientes");
         Route::post("/productoById",[ControllerInventarioPdv::class, "getProductoById"])->name("PDV.post.getproductoById");
+        Route::post("/saveInvoice",[ControllerInventarioPdv::class, "saveInvoice"])->name("PDV.post.saveInvoice");
+        Route::post("/printInvoice",[ControllerInventarioPdv::class, "printInvoice"])->name("PDV.post.printInvoice");
+        Route::post("/payInvoice",[ControllerInventarioPdv::class, "payInvoice"])->name("PDV.post.payInvoice");
     });
 
 

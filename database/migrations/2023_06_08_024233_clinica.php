@@ -13,7 +13,7 @@ return new class extends Migration
     {
         DB::statement("CREATE TABLE `pediaser`.`clinica` (`id` INT NOT NULL AUTO_INCREMENT , `config` VARCHAR(100) NOT NULL , `value` VARCHAR(200) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;");
         DB::statement("INSERT INTO `clinica` (`id`, `config`, `value`) VALUES (NULL, 'nombre', 'Pediaser');");
-        DB::statement("INSERT INTO `clinica` (`id`, `config`, `value`) VALUES (NULL, 'logo', 'images/logo-r');");
+        DB::statement("INSERT INTO `clinica` (`id`, `config`, `value`) VALUES (NULL, 'logo', 'images/logo-r.png');");
         DB::statement("INSERT INTO `clinica` (`id`, `config`, `value`) VALUES (NULL, 'moneda', '\$MXM');");
     }
 

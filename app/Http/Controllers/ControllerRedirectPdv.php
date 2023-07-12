@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\DB;
 class ControllerRedirectPdv extends Controller
 {
     public function initial(Request $request){
-      
-
         switch(Auth::user()->level){
             case "0":
                 return redirect()->route("administrator.home");

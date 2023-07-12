@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("
-            ALTER TABLE `facturas` ADD `estado` INT(1) NOT NULL DEFAULT '0' AFTER `unique`;
-        ");
+        
         DB::statement("
             CREATE TABLE `pediaser`.`pagos` (
                                     `id` INT NOT NULL AUTO_INCREMENT , 
@@ -23,7 +21,6 @@ return new class extends Migration
                                     `pagado` VARCHAR(200) NOT NULL , PRIMARY KEY (`id`)
                                     ) ENGINE = InnoDB;
         ");
-        DB::statement("ALTER TABLE `categorias` ADD `codigo` VARCHAR(100) NOT NULL AFTER `imagen`;");
     }
 
     /**
@@ -32,8 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         DB::statement("DROP TABLE IF EXISTS `pagos`");
-        DB::statement("ALTER TABLE `facturas` DROP COLUMN IF EXISTS `estado`");
-        DB::statement("ALTER TABLE `categorias` DROP COLUMN IF EXISTS `codigo`");
         
     }
 };
