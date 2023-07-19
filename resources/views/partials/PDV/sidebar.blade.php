@@ -35,42 +35,7 @@
             <span>Inicio</span>
           </a>
         </li>
-        <li class="has-sub menu-gestion">
-          <a href="javascript:;">
-            <b class="caret pull-right"></b>
-            <i class="fa fa-laptop"></i>
-            <span>Gestión de Red</span>
-          </a>
-          <ul class="sub-menu">
-            <li>
-              <a href="#ajax/router" data-toggle="ajax">Routers</a>
-            </li>
-            <li>
-              <a href="#ajax/redipv4" data-toggle="ajax">Redes IPv4</a>
-            </li>
-            <li>
-              <a href="#ajax/emisores" data-toggle="ajax">Monitoreo</a>
-            </li>
-            <li>
-              <a href="#ajax/nap" data-toggle="ajax">Cajas Nap</a>
-            </li>
-            <li>
-              <a href="#ajax/trafico" data-toggle="ajax">Tráfico</a>
-            </li>
-            <li>
-              <a href="#ajax/ipvisitadas" data-toggle="ajax">Ips Visitadas</a>
-            </li>
-            <li>
-              <a href="#ajax/blacklist" data-toggle="ajax">Monitor BlackList</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#ajax/ajustes" data-toggle="ajax">
-            <i class="fa fa-cogs" aria-hidden="true"></i>
-            <span>Ajustes</span>
-          </a>
-        </li>
+        
         <!-- begin sidebar minify button -->
         <li>
           <a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify">

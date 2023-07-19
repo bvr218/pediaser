@@ -16,7 +16,7 @@ class ControllerInventarioPdv extends Controller
         $directory = "PDV.inventario";
         return view("PDV.index",compact('directory',"clinica"));
     }
-    private function getClinica(){
+    public function getClinica(){
         $moneda = DB::table("clinica")->where("config","moneda")->value("value");
         $clinica = DB::table("clinica")->where("config","nombre")->value("value");
         $logo = DB::table("clinica")->where("config","logo")->value("value");
@@ -35,6 +35,9 @@ class ControllerInventarioPdv extends Controller
                             ->get();
         }
         return json_encode($productos);
+    }
+    public function modalMethod(Request $request){
+        return view("modals.payMethodInvoice");
     }
     public function getClientes(Request $request){
         $productos;
@@ -195,5 +198,85 @@ class ControllerInventarioPdv extends Controller
         $dompdf->render();
         $contenidoPDF = $dompdf->output();
         return $contenidoPDF;
+    }
+    public function getInvoiceBack(Request $request){
+        $data = $request->input("data");
+        $unique = $data["unique"];
+        $factura = DB::table("facturas")
+                    ->where("unique","=",$unique)
+                    ->first();
+
+        if(is_null($factura) || empty($factura)){
+            $factura = DB::table("facturas")
+            ->orderBy('id', 'desc')->first();
+        }
+
+        $factura = DB::table("facturas")
+                    ->where("id","=",($factura->id)-1)
+                    ->first();
+        if(is_null($factura) || empty($factura)){
+            $salida = [
+                "salida"=>"error"
+            ];
+            return $salida;
+        }
+        $itemsFactura = DB::table("items_factura")
+                        ->where("factura_unique","=",$factura->unique)
+                        ->get();
+        $cliente;
+        if($factura->identificacion == null){
+            $cliente = "Publico en general";
+        }else{
+            $cliente = DB::table("pacientes")
+                ->where("telefono","=",$factura->identificacion)
+                ->value("nombres");
+        }
+        $salida = [
+            "salida"=>"exito",
+            "factura"=>$factura,
+            "items"=>$itemsFactura,
+            "cliente"=>$cliente
+        ];
+        return $salida;
+    }
+    public function getInvoiceNext(Request $request){
+        $data = $request->input("data");
+        $unique = $data["unique"];
+        $factura = DB::table("facturas")
+                    ->where("unique","=",$unique)
+                    ->first();
+
+        if(is_null($factura) || empty($factura)){
+            $factura = DB::table("facturas")
+            ->orderBy('id', 'desc')->first();
+        }
+
+        $factura = DB::table("facturas")
+                    ->where("id","=",($factura->id)+1)
+                    ->first();
+        if(is_null($factura) || empty($factura)){
+            $salida = [
+                "salida"=>"error"
+            ];
+            return $salida;
+        }
+        $itemsFactura = DB::table("items_factura")
+                        ->where("factura_unique","=",$factura->unique)
+                        ->get();
+        $cliente;
+        if($factura->identificacion == null){
+            $cliente = "Publico en general";
+        }else{
+            $cliente = DB::table("pacientes")
+                ->where("telefono","=",$factura->identificacion)
+                ->value("nombres");
+        }
+        $salida = [
+            "salida"=>"exito",
+            "factura"=>$factura,
+            "items"=>$itemsFactura,
+            "cliente"=>$cliente
+        ];
+        return $salida;
     }
 }

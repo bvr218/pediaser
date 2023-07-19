@@ -1,16 +1,11 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 //controllers admin
-use App\Http\Controllers\ControllerRedirect;
-use App\Http\Controllers\ControllerHome;
-use App\Http\Controllers\ControllerPacientes;
 //controllers pdv
-use App\Http\Controllers\ControllerRedirectPdv;
-use App\Http\Controllers\ControllerHomePdv;
-use App\Http\Controllers\ControllerClientesPdv;
-use App\Http\Controllers\ControllerInventarioPdv;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +34,14 @@ Route::group(["middleware"=>"auth"],function(){
         Route::get("/",[ControllerRedirect::class, 'initial'])->name("administrator");
         Route::get("/home",[ControllerHome::class, 'home'])->name("administrator.home");
         Route::get("/pacientes",[ControllerPacientes::class, 'pacientes'])->name("administrator.pacientes");
+        Route::get("/almacen",[ControllerAlmacen::class, 'almacen'])->name("administrator.almacen");
+        Route::group(["middleware"=>"web"],function(){
+            Route::get("/getAllProducts",[ControllerAlmacen::class, 'getProducts'])->name("administrator.almacen.getAllProducts");
+            Route::post("/getImportProducts",[ControllerAlmacen::class, 'getImportProducts'])->name("administrator.almacen.getImportFile");
+        });
+        Route::post("/importsExcel",[ControllerAlmacen::class, 'importExcel'])->name("administrator.almacen.import");
+        Route::post("/newProducto",[ControllerAlmacen::class, 'newProducto'])->name("administrator.almacen.newProducto");
+        Route::post("/addNewProducto",[ControllerAlmacen::class, 'addNewProducto'])->name("administrator.almacen.addNewProducto");
     });
 
     //modulo de PDV
@@ -58,6 +61,9 @@ Route::group(["middleware"=>"auth"],function(){
         Route::post("/saveInvoice",[ControllerInventarioPdv::class, "saveInvoice"])->name("PDV.post.saveInvoice");
         Route::post("/printInvoice",[ControllerInventarioPdv::class, "printInvoice"])->name("PDV.post.printInvoice");
         Route::post("/payInvoice",[ControllerInventarioPdv::class, "payInvoice"])->name("PDV.post.payInvoice");
+        Route::post("/getInvoiceBack",[ControllerInventarioPdv::class, "getInvoiceBack"])->name("PDV.post.getInvoiceBack");
+        Route::post("/getInvoiceNext",[ControllerInventarioPdv::class, "getInvoiceNext"])->name("PDV.post.getInvoiceNext");
+        Route::post("/modalMethod",[ControllerInventarioPdv::class, "modalMethod"])->name("PDV.post.modalMethod");
     });
 
 

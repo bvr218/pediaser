@@ -20,4 +20,5 @@ class ControllerPacientes extends Controller
         $niveles = ["0"=>"Administrador","1"=>"Vendedor","2"=>"Medico"];
         return ["moneda"=>$moneda,"clinica"=>$clinica,"logo"=>$logo,"niveles"=>$niveles];
     }
+    
 }

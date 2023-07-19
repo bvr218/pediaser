@@ -51,7 +51,7 @@
     <div id="page-loader" class="fade show"><span class="spinner"></span></div>
 	    <div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed" style="height: 100%">
             @include("partials.PDV.navbar")
-            @include("partials.PDV.sidebar")
+            <@include("partials.PDV.sidebar")
             @section("content")
                 <div id="content" class="content" style="height: 100%">
 
@@ -144,6 +144,21 @@
             <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fas fa-angle-up"></i></a>
         </div>
     </div>
+    <div class="modal" id="modal-loader">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Procesando</h4>
+          </div>
+          <div class="modal-body row text-center">
+            <i class="fas fa-spinner fa-spin fa-2x"></i> Cargando...
+          </div>
+        </div>
+      </div>
+    </div>
+	
+    <div id="tmp"></div>
+    <div id="tmp2"></div>
 </body>
 @include("partials.PDV.pdvjs")
 <script>

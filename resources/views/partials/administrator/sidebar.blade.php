@@ -57,13 +57,25 @@
                             <a href="#ajax/nap" data-toggle="ajax">Notas y observaciones</a>
                         </li>
                         <li>
-                            <a href="#ajax/trafico" data-toggle="ajax">Integración de imágenes y archivos</a>
-                        </li>
-                        <li>
                             <a href="#ajax/ipvisitadas" data-toggle="ajax">Recordatorios de citas</a>
                         </li>
                         <li>
                             <a href="#ajax/blacklist" data-toggle="ajax">Atención al cliente</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub menu-gestion">
+                    <a href="javascript:;">
+                        <b class="caret pull-right"></b>
+                        <i class="fa fa-box" aria-hidden="true"></i>
+                        <span>Inventario</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="{{route('administrator.almacen')}}" data-toggle="ajax">Almacen</a>
+                        </li>
+                        <li>
+                            <a href="#ajax/blacklist" data-toggle="ajax">Reporte de ventas</a>
                         </li>
                     </ul>
                 </li>

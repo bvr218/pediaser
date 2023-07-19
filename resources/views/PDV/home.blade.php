@@ -14,13 +14,13 @@
         <span class="label label-warning">Sin cobrar</span>
       </div>
       <div class="col row">
-        <a class="btn btn-sm btn-icon btn-circle btn-success m-auto" href="javascript:;">
+        <a onclick="facback()" class="btn btn-sm btn-icon btn-circle btn-success m-auto" href="javascript:;">
           <i class="fa fa-angle-left"></i>
         </a>
         <small style="text-align: center;color:black" class="col m-auto">
           Factura No: <b id="facunique">{{substr(uniqid("",true),0,10)}}</b>
         </small>
-        <a class="btn btn-sm btn-icon btn-circle btn-success m-auto" href="javascript:;">
+        <a onclick="facnext()" class="btn btn-sm btn-icon btn-circle btn-success m-auto" href="javascript:;">
           <i class="fa fa-angle-right"></i>
         </a>
       </div>
@@ -179,7 +179,7 @@
 
  let indicativo;
 
-  function guardar(){
+  function guardar(metodo="efectivo"){
 
     let items = [];
     table_productos.rows().every(function () {
@@ -196,7 +196,7 @@
       "tipo":"venta",
       "facturador":"{{Auth::user()->id}}",
       "identificacion":`${$("#n-cliente").val()}`,
-      "tipo_pago":`efectivo`,
+      "tipo_pago":metodo,
       "nombre_paciente":`${$("#nombre-cliente").val()}`,
       "unique":`${$("#facunique").text()}`,
       "estado":`0`,
@@ -253,26 +253,9 @@
       alerta("error","El valor recibio es 0");
       return false;
     }
-    guardar();
-    let data = {
-      "unique":`${$("#facunique").text()}`,
-    };
     var csrfToken = '{{ csrf_token() }}';
-    $.post({
-        url:"{{route('PDV.post.payInvoice')}}",
-        data:{
-            _token: csrfToken,
-            data
-        },
-        success: function(response) {
-          $("#estadoFact").html('<span class="label label-success">Cobrada</span>');
-          imprimir();
-        },
-        error: function(xhr) {
-          alerta("error","Error al pagar la factura");
-          console.log(xhr.responseText);
-        }
-    })
+    getmodal("{{route('PDV.post.modalMethod')}}","Metodo de pago","sm",csrfToken);
+    
   }
 
 
@@ -562,6 +545,412 @@
         $('#nombre-cliente').val(cliente);
       }
       
+    }
+
+    function facnext(){
+      if($("#estadoFact span").text() == "Sin cobrar"){
+        $.confirm({
+          theme: 'supervan',
+          draggable: false,
+          closeIcon: true,
+          animationBounce: 2.5,
+          escapeKey: false,
+          content: 'Si no ha guardado los datos de esta factura, estos se perderan, esta seguro de continuar?',
+          title: '<i class="far fa-question-circle fa-lg icodialog"></i> Eliminar',
+          buttons: {
+            Cancelar: {
+              text: '<i class="fa fa-times icodialog"></i> No, regresame', // With spaces and symbols
+              action: function () {
+                
+              }
+            },
+            Continuar: {
+              text: '<i class="far fa-trash-alt icodialog"></i> Si, borralo', // With spaces and symbols
+              action: function () {
+                
+                let data = {
+                  "unique":`${$("#facunique").text()}`,
+                };
+                var csrfToken = '{{ csrf_token() }}';
+                $.post({
+                    url:"{{route('PDV.post.getInvoiceNext')}}",
+                    data:{
+                        _token: csrfToken,
+                        data
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                      response.salida == "error"?(alerta("error","No hay mas facturas")):(false);
+                      if(response.salida == "error"){
+                        return false;
+                      }
+                      table_productos.clear().draw();
+                      response.estado==0?($("#estadoFact").html('<span class="label label-warning">Sin cobrar</span>')):($("#estadoFact").html('<span class="label label-success">Cobrada</span>'));
+                      $("#n-cliente").val(response.identificacion);
+                      $("#nombre-cliente").val(response.nombre_paciente);
+                      $("#facunique").text(response.factura.unique);
+                      for (let i = 0; i < response.items.length; i++) {
+                        const element = response.items[i];
+                        $.post({
+                          url:"{{route('PDV.post.getproductoById')}}",
+                          data:{
+                              _token: csrfToken,
+                              hint:element.id_elemento
+                          },
+                          dataType: 'json',
+                          success: function(response) {
+                            table_productos.row.add({
+                                                    "cod":response.codigo,
+                                                    "descripcion":response.producto,
+                                                    "precio":element.valor,
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response.iva,
+                                                    "existencia":response.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    }).draw();
+                            
+                            $("#n-facturas").val(""); 
+                            updatePrice()
+                          },
+                          error: function(xhr) {
+                              console.log(xhr.responseText);
+                          }
+                        })
+                      }
+                      
+                      $("#totalRecibido").val(response.factura.recibido);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                })
+              }
+            },
+            Guardar: {
+              text: '<i class="fa fa-save icodialog"></i> Guarda y continua', // With spaces and symbols
+              action: function () {
+                guardar();
+               
+                let data = {
+                  "unique":`${$("#facunique").text()}`,
+                };
+                var csrfToken = '{{ csrf_token() }}';
+                $.post({
+                    url:"{{route('PDV.post.getInvoiceNext')}}",
+                    data:{
+                        _token: csrfToken,
+                        data
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                      response.salida == "error"?(alerta("error","No hay mas facturas")):(false);
+                      if(response.salida == "error"){
+                        return false;
+                      }
+                      table_productos.clear().draw();
+                      response.estado==0?($("#estadoFact").html('<span class="label label-warning">Sin cobrar</span>')):($("#estadoFact").html('<span class="label label-success">Cobrada</span>'));
+                      $("#n-cliente").val(response.identificacion);
+                      $("#nombre-cliente").val(response.nombre_paciente);
+                      $("#facunique").text(response.factura.unique);
+                      for (let i = 0; i < response.items.length; i++) {
+                        const element = response.items[i];
+                        $.post({
+                          url:"{{route('PDV.post.getproductoById')}}",
+                          data:{
+                              _token: csrfToken,
+                              hint:element.id_elemento
+                          },
+                          dataType: 'json',
+                          success: function(response) {
+                            table_productos.row.add({
+                                                    "cod":response.codigo,
+                                                    "descripcion":response.producto,
+                                                    "precio":element.precio_venta,
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response.iva,
+                                                    "existencia":response.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    }).draw();
+                            
+                            $("#n-facturas").val(""); 
+                            updatePrice()
+                          },
+                          error: function(xhr) {
+                              console.log(xhr.responseText);
+                          }
+                        })
+                      }
+                      $("#totalRecibido").val(response.factura.recibido);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                })
+              }
+            }
+          }
+        });
+      }else{
+       
+        let data = {
+          "unique":`${$("#facunique").text()}`,
+        };
+        var csrfToken = '{{ csrf_token() }}';
+        $.post({
+            url:"{{route('PDV.post.getInvoiceNext')}}",
+            data:{
+                _token: csrfToken,
+                data
+            },
+            dataType: 'json',
+            success: function(response) {
+              response.salida == "error"?(alerta("error","No hay mas facturas")):(false);
+              if(response.salida == "error"){
+                return false;
+              }
+              table_productos.clear().draw();
+              response.estado==0?($("#estadoFact").html('<span class="label label-warning">Sin cobrar</span>')):($("#estadoFact").html('<span class="label label-success">Cobrada</span>'));
+              $("#n-cliente").val(response.identificacion);
+              $("#nombre-cliente").val(response.nombre_paciente);
+              $("#facunique").text(response.factura.unique);
+              for (let i = 0; i < response.items.length; i++) {
+                const element = response.items[i];
+                $.post({
+                  url:"{{route('PDV.post.getproductoById')}}",
+                  data:{
+                      _token: csrfToken,
+                      hint:element.id_elemento
+                  },
+                  dataType: 'json',
+                  success: function(response) {
+                    table_productos.row.add({
+                                            "cod":response.codigo,
+                                            "descripcion":response.producto,
+                                            "precio":element.precio_venta,
+                                            "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
+                                            "impuesto":response.iva,
+                                            "existencia":response.cantidad,
+                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                            }).draw();
+                    
+                    $("#n-facturas").val(""); 
+                    updatePrice()
+                  },
+                  error: function(xhr) {
+                      console.log(xhr.responseText);
+                  }
+                })
+              }
+              $("#totalRecibido").val(response.factura.recibido);
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        })
+      }
+
+    }
+
+    function facback(){
+      if($("#estadoFact span").text() == "Sin cobrar"){
+        $.confirm({
+          theme: 'supervan',
+          draggable: false,
+          closeIcon: true,
+          animationBounce: 2.5,
+          escapeKey: false,
+          content: 'Si no ha guardado los datos de esta factura, estos se perderan, esta seguro de continuar?',
+          title: '<i class="far fa-question-circle fa-lg icodialog"></i> Eliminar',
+          buttons: {
+            Cancelar: {
+              text: '<i class="fa fa-times icodialog"></i> No, regresame', // With spaces and symbols
+              action: function () {
+                
+              }
+            },
+            Continuar: {
+              text: '<i class="far fa-trash-alt icodialog"></i> Si, borralo', // With spaces and symbols
+              action: function () {
+                
+                let data = {
+                  "unique":`${$("#facunique").text()}`,
+                };
+                var csrfToken = '{{ csrf_token() }}';
+                $.post({
+                    url:"{{route('PDV.post.getInvoiceBack')}}",
+                    data:{
+                        _token: csrfToken,
+                        data
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                      response.salida == "error"?(alerta("error","No hay mas facturas")):(false);
+                      if(response.salida == "error"){
+                        return false;
+                      }
+                      table_productos.clear().draw();
+                      response.estado==0?($("#estadoFact").html('<span class="label label-warning">Sin cobrar</span>')):($("#estadoFact").html('<span class="label label-success">Cobrada</span>'));
+                      $("#n-cliente").val(response.identificacion);
+                      $("#nombre-cliente").val(response.nombre_paciente);
+                      $("#facunique").text(response.factura.unique);
+                      for (let i = 0; i < response.items.length; i++) {
+                        const element = response.items[i];
+                        $.post({
+                          url:"{{route('PDV.post.getproductoById')}}",
+                          data:{
+                              _token: csrfToken,
+                              hint:element.id_elemento
+                          },
+                          dataType: 'json',
+                          success: function(response) {
+                            table_productos.row.add({
+                                                    "cod":response.codigo,
+                                                    "descripcion":response.producto,
+                                                    "precio":element.precio_venta,
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response.iva,
+                                                    "existencia":response.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    }).draw();
+                            
+                            $("#n-facturas").val(""); 
+                            updatePrice()
+                          },
+                          error: function(xhr) {
+                              console.log(xhr.responseText);
+                          }
+                        })
+                      }
+                      $("#totalRecibido").val(response.factura.recibido);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                })
+              }
+            },
+            Guardar: {
+              text: '<i class="fa fa-save icodialog"></i> Guarda y continua', // With spaces and symbols
+              action: function () {
+                guardar();
+                
+                let data = {
+                  "unique":`${$("#facunique").text()}`,
+                };
+                var csrfToken = '{{ csrf_token() }}';
+                $.post({
+                    url:"{{route('PDV.post.getInvoiceBack')}}",
+                    data:{
+                        _token: csrfToken,
+                        data
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                      response.salida == "error"?(alerta("error","No hay mas facturas")):(false);
+                      if(response.salida == "error"){
+                        return false;
+                      }
+                      table_productos.clear().draw();
+                      response.estado==0?($("#estadoFact").html('<span class="label label-warning">Sin cobrar</span>')):($("#estadoFact").html('<span class="label label-success">Cobrada</span>'));
+                      $("#n-cliente").val(response.identificacion);
+                      $("#nombre-cliente").val(response.nombre_paciente);
+                      $("#facunique").text(response.factura.unique);
+                      for (let i = 0; i < response.items.length; i++) {
+                        const element = response.items[i];
+                        $.post({
+                          url:"{{route('PDV.post.getproductoById')}}",
+                          data:{
+                              _token: csrfToken,
+                              hint:element.id_elemento
+                          },
+                          dataType: 'json',
+                          success: function(response) {
+                            table_productos.row.add({
+                                                    "cod":response.codigo,
+                                                    "descripcion":response.producto,
+                                                    "precio":element.precio_venta,
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response.iva,
+                                                    "existencia":response.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    }).draw();
+                            
+                            $("#n-facturas").val(""); 
+                            updatePrice()
+                          },
+                          error: function(xhr) {
+                              console.log(xhr.responseText);
+                          }
+                        })
+                      }
+                      $("#totalRecibido").val(response.factura.recibido);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                })
+              }
+            }
+          }
+        });
+      }else{
+        let data = {
+          "unique":`${$("#facunique").text()}`,
+        };
+        var csrfToken = '{{ csrf_token() }}';
+        $.post({
+            url:"{{route('PDV.post.getInvoiceBack')}}",
+            data:{
+                _token: csrfToken,
+                data
+            },
+            dataType: 'json',
+            success: function(response) {
+              response.salida == "error"?(alerta("error","No hay mas facturas")):(false);
+              if(response.salida == "error"){
+                return false;
+              }
+              table_productos.clear().draw();
+              response.estado==0?($("#estadoFact").html('<span class="label label-warning">Sin cobrar</span>')):($("#estadoFact").html('<span class="label label-success">Cobrada</span>'));
+              $("#n-cliente").val(response.identificacion);
+              $("#nombre-cliente").val(response.nombre_paciente);
+              $("#facunique").text(response.factura.unique);
+              for (let i = 0; i < response.items.length; i++) {
+                const element = response.items[i];
+                $.post({
+                  url:"{{route('PDV.post.getproductoById')}}",
+                  data:{
+                      _token: csrfToken,
+                      hint:element.id_elemento
+                  },
+                  dataType: 'json',
+                  success: function(response) {
+                    table_productos.row.add({
+                                            "cod":response.codigo,
+                                            "descripcion":response.producto,
+                                            "precio":element.precio_venta,
+                                            "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
+                                            "impuesto":response.iva,
+                                            "existencia":response.cantidad,
+                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                            }).draw();
+                    
+                    $("#n-facturas").val(""); 
+                    updatePrice()
+                  },
+                  error: function(xhr) {
+                      console.log(xhr.responseText);
+                  }
+                })
+              }
+              $("#totalRecibido").val(response.factura.recibido);
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        })
+      }
+
     }
 
     function changeCodigo(codigo) {
