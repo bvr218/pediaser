@@ -55,7 +55,14 @@ class ControllerInventarioPdv extends Controller
         $producto = DB::table("almacen")
                             ->where("codigo","=",trim($request->input("hint")))
                             ->first();
-
+        if(is_null($producto)){
+            $producto = [
+                "iva"=>0,
+                "cantidad"=>0,
+                "codigo"=>"Eliminado",
+                "producto"=>"Producto Eliminado"
+            ];
+        }
         return json_encode($producto);
     }
     public function saveInvoice(Request $request){
@@ -153,7 +160,11 @@ class ControllerInventarioPdv extends Controller
                     ->where("codigo","=",$item["id_elemento"])
                     ->first();
             $total +=  $item["precio_venta"]*$item["cantidad"];
-            $html = str_replace("{itempos}",'<div><div style="display:inline-block; text-align:left; width:48%">'.$it->producto.'</div><div style="display:inline-block; width:20%">'.$item["cantidad"].'</div><div style="display:inline-block;width:20%"></div>'.($item["precio_venta"]*$item["cantidad"]).'</div>{itempos}',$html);
+            if(is_null($it) || empty($it)){
+                $html = str_replace("{itempos}",'<div><div style="display:inline-block; text-align:left; width:48%">Producto Eliminado</div><div style="display:inline-block; width:20%">'.$item["cantidad"].'</div><div style="display:inline-block;width:20%"></div>'.($item["precio_venta"]*$item["cantidad"]).'</div>{itempos}',$html);
+            }else{
+                $html = str_replace("{itempos}",'<div><div style="display:inline-block; text-align:left; width:48%">'.$it->producto.'</div><div style="display:inline-block; width:20%">'.$item["cantidad"].'</div><div style="display:inline-block;width:20%"></div>'.($item["precio_venta"]*$item["cantidad"]).'</div>{itempos}',$html);
+            }
         }
 
         $html = str_replace("{total}","$".$total,$html);

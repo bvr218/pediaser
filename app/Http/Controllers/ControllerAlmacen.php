@@ -138,6 +138,27 @@ class ControllerAlmacen extends Controller
             exit;
         }
     }
+    public function editProducto($id,Request $request){
+        $proveedores = $this->getProveedores();
+        $producto = $this->getProductoById($id);
+        return view("modals.editProducto",compact("producto","proveedores"));
+    }
+    private function getProvById($id){
+        $proveedor = DB::table("proveedor")
+                            ->where("id","=",$id)
+                            ->first();
+        return $proveedor;
+    }
+    public function editProv($id,Request $request){
+        $proveedor = $this->getProvById($id);
+        return view("modals.editProv",compact("proveedor"));
+    }
+    private function getProductoById($id){
+        $producto = DB::table("almacen")
+                            ->where("id","=",$id)
+                            ->first();
+        return $producto;
+    }
     public function getProducts(Request $request){
         $productos = DB::table("almacen")
                     ->where("cantidad",">",0)
@@ -148,39 +169,118 @@ class ControllerAlmacen extends Controller
             $prv = DB::table("proveedor")
                             ->where("id","=",$producto->proveedor)
                             ->first();
-                            
-            if(empty($producto) || is_null($producto)){
+
+            if(empty($prv) || is_null($prv)){
                 $producto->proveedor = "Sin proveedor";
             }else{
                 $producto->proveedor = $prv->nombre;
             }
+            $producto->proveedor = str_replace(" ","&nbsp;",$producto->proveedor);
 
             $producto->iva = $producto->iva."%";
             $producto->vencimiento = date("d/m/Y", strtotime($producto->vencimiento));
-            $producto->tool = "<a><i>B</i></a><a><i>E</i></a>";
+            $producto->tool = '
+                            <a data-toggle="tooltip" title="" class="btn btn-default btn-icon btn-sm" data-original-title="Editar" onclick="getmodal(\''.route("administrator.almacen.editProducto",["id"=>$producto->id]).'\',\'Editar producto\',\'sm\',\''.csrf_token().'\');">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a data-toggle="tooltip" title="" class="btn btn-default btn-icon btn-sm" onclick="delete_prod(\''.$producto->id.'\')" data-original-title="Eliminar">
+                                <i class="far fa-trash-alt" aria-hidden="true"></i>
+                            </a>';
             $salida[] = $producto;        
         }
         if(empty($salida)){
             return "{\n\"sEcho\": 1,\n\"iTotalRecords\": \"0\",\n\"iTotalDisplayRecords\": \"0\",\n\"aaData\": []\n}";
         }else{
-            $results = ["data" => $productos];
+            $results = ["data" => $salida];
+            return $results;
+        }
+    }
+    public function getAllProv(Request $request){
+        $proveedores = DB::table("proveedor")
+                    ->get();
+        $salida = [];
+        foreach ($proveedores as $producto) {
+            
+            $producto->nombre = str_replace(" ","&nbsp;",$producto->nombre);
+            $producto->direccion = str_replace(" ","&nbsp;",$producto->direccion);
+            $producto->tool = '
+                            <a data-toggle="tooltip" title="" class="btn btn-default btn-icon btn-sm" data-original-title="Editar" onclick="getmodal(\''.route("administrator.almacen.editProv",["id"=>$producto->id]).'\',\'Editar proveedor\',\'sm\',\''.csrf_token().'\');">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            <a data-toggle="tooltip" title="" class="btn btn-default btn-icon btn-sm" onclick="delete_prod(\''.$producto->id.'\')" data-original-title="Eliminar">
+                                <i class="far fa-trash-alt" aria-hidden="true"></i>
+                            </a>';
+            $salida[] = $producto;        
+        }
+        if(empty($salida)){
+            return "{\n\"sEcho\": 1,\n\"iTotalRecords\": \"0\",\n\"iTotalDisplayRecords\": \"0\",\n\"aaData\": []\n}";
+        }else{
+            $results = ["data" => $salida];
             return $results;
         }
     }
     public function addNewProducto(Request $request){
         $producto = $request->input("almacen");
-        $producto["vencimiento"] = date("Y-m-d",strtotime($producto["vencimiento"]));
+        $producto["vencimiento"] = date_create_from_format('d/m/Y', $producto["vencimiento"]);
+        $producto["vencimiento"] = date_format($producto["vencimiento"], 'Y-m-d');
+        $before = DB::table("almacen")
+                        ->where("codigo","=",$producto["codigo"])
+                        ->first();
+        if(!is_null($before) || !empty($before)){
+            $salida = ["estado" => "error", "salida" => "El codigo de barras del producto ya esta registrado"];    
+            return $salida;
+        }
+
+        
         DB::table("almacen")
                         ->insert($producto);
         $salida = ["estado" => "exito", "salida" => "Producto agregado correctamente"];    
+        return $salida;            
+    }
+    public function addNewProveedor(Request $request){
+        $producto = $request->input("almacen");
+        DB::table("proveedor")
+                        ->insert($producto);
+        $salida = ["estado" => "exito", "salida" => "Proveedor agregado correctamente"];    
+        return $salida;            
+    }
+    public function addEditProducto($id,Request $request){
+        $producto = $request->input("almacen");
+        $producto["vencimiento"] = date_create_from_format('d/m/Y', $producto["vencimiento"]);
+        $producto["vencimiento"] = date_format($producto["vencimiento"], 'Y-m-d');
+        DB::table("almacen")
+                        ->where("id","=",$id)
+                        ->update($producto);
+        $salida = ["estado" => "exito", "salida" => "Producto editado correctamente"];    
+        return $salida;            
+    }
+    public function addEditProveedor($id,Request $request){
+        $producto = $request->input("almacen");
+        DB::table("proveedor")
+                        ->where("id","=",$id)
+                        ->update($producto);
+        $salida = ["estado" => "exito", "salida" => "Producto editado correctamente"];    
         return $salida;            
     }
     public function newProducto(Request $request){
         $proveedores = $this->getProveedores();
         return view("modals.newProducto",compact("proveedores"));
     }
+    public function newProveedor(Request $request){
+        return view("modals.newProveedor");
+    }
     private function getProveedores(){
         $proveedores = DB::table("proveedor")->get();
+
+
         return $proveedores;
+    }
+    public function deleteProducto(Request $request){
+        $id = $request->input("id");
+        DB::table("almacen")
+                    ->where("id","=",$id)
+                    ->delete();
+        $salida = ["estado" => "exito", "salida" => "Producto eliminado correctamente"];      
+        return $salida;          
     }
 }

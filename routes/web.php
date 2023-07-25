@@ -33,15 +33,43 @@ Route::group(["middleware"=>"auth"],function(){
     Route::prefix("administrator")->group(function(){
         Route::get("/",[ControllerRedirect::class, 'initial'])->name("administrator");
         Route::get("/home",[ControllerHome::class, 'home'])->name("administrator.home");
-        Route::get("/pacientes",[ControllerPacientes::class, 'pacientes'])->name("administrator.pacientes");
+        
+
+        //inicio de vista almacen y sus rutas
         Route::get("/almacen",[ControllerAlmacen::class, 'almacen'])->name("administrator.almacen");
         Route::group(["middleware"=>"web"],function(){
             Route::get("/getAllProducts",[ControllerAlmacen::class, 'getProducts'])->name("administrator.almacen.getAllProducts");
             Route::post("/getImportProducts",[ControllerAlmacen::class, 'getImportProducts'])->name("administrator.almacen.getImportFile");
+            Route::get("/getAllProv",[ControllerAlmacen::class, 'getAllProv'])->name("administrator.almacen.getAllProv");
         });
         Route::post("/importsExcel",[ControllerAlmacen::class, 'importExcel'])->name("administrator.almacen.import");
         Route::post("/newProducto",[ControllerAlmacen::class, 'newProducto'])->name("administrator.almacen.newProducto");
+        Route::post("/newProveedor",[ControllerAlmacen::class, 'newProveedor'])->name("administrator.almacen.newProveedor");
         Route::post("/addNewProducto",[ControllerAlmacen::class, 'addNewProducto'])->name("administrator.almacen.addNewProducto");
+        Route::post("/addNewProveedor",[ControllerAlmacen::class, 'addNewProveedor'])->name("administrator.almacen.addNewProveedor");
+        Route::post("/editProducto/{id}",[ControllerAlmacen::class, 'editProducto'])->name("administrator.almacen.editProducto");
+        Route::post("/editProv/{id}",[ControllerAlmacen::class, 'editProv'])->name("administrator.almacen.editProv");
+        Route::post("/addEditProducto/{id}",[ControllerAlmacen::class, 'addEditProducto'])->name("administrator.almacen.addEditProducto");
+        Route::post("/addEditProveedor/{id}",[ControllerAlmacen::class, 'addEditProveedor'])->name("administrator.almacen.addEditProveedor");
+        Route::post("/deleteProducto",[ControllerAlmacen::class, 'deleteProducto'])->name("administrator.almacen.deleteProducto");
+        //fin de vsita de almacen
+
+        //inicio de vista de reporte
+        Route::get("/reportes",[ControllerReportes::class, 'reportes'])->name("administrator.reportes");
+        Route::post("/getPdf",[ControllerReportes::class, 'getPdf'])->name("administrator.reportes.getPdf");
+        Route::get("/getTransacciones/{forma_pago?}/{operador?}/{desde?}/{hasta?}",[ControllerReportes::class, 'getTransacciones'])->name("administrator.reportes.getTransacciones");
+        //fin de vista de reporte
+
+        //inicio de vista de pacientes
+        Route::get("/pacientes",[ControllerPacientes::class, 'pacientes'])->name("administrator.pacientes");
+        Route::group(["middleware"=>"web"],function(){
+            Route::get("/getAllPacientes",[ControllerPacientes::class, 'getAllPacientes'])->name("administrator.pacientes.getAllPacientes");
+        });
+        Route::post("/newPaciente",[ControllerPacientes::class, 'newPaciente'])->name("administrator.almacen.newPaciente");
+        Route::post("/addNewCliente",[ControllerPacientes::class, 'addNewCliente'])->name("administrator.almacen.addNewCliente");
+        Route::get("/pacientes/addNote/{id?}",[ControllerPacientes::class, 'addNote'])->name("administrator.pacientes.addNote");
+
+        //fin de vista de pacientes
     });
 
     //modulo de PDV

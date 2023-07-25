@@ -41,23 +41,14 @@
                     <a href="javascript:;">
                         <b class="caret pull-right"></b>
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        <span>Clientes</span>
+                        <span>Pacientes</span>
                     </a>
                     <ul class="sub-menu">
-                        <li>
-                            <a href="#ajax/router" data-toggle="ajax">Historial clínico</a>
-                        </li>
                         <li>
                             <a href="#ajax/redipv4" data-toggle="ajax">Citas</a>
                         </li>
                         <li>
-                            <a href="#ajax/emisores" data-toggle="ajax">Medicamentos recetados</a>
-                        </li>
-                        <li>
-                            <a href="#ajax/nap" data-toggle="ajax">Notas y observaciones</a>
-                        </li>
-                        <li>
-                            <a href="#ajax/ipvisitadas" data-toggle="ajax">Recordatorios de citas</a>
+                            <a href="{{route('administrator.pacientes')}}" data-toggle="ajax">Lista de Pacientes</a>
                         </li>
                         <li>
                             <a href="#ajax/blacklist" data-toggle="ajax">Atención al cliente</a>
@@ -75,16 +66,11 @@
                             <a href="{{route('administrator.almacen')}}" data-toggle="ajax">Almacen</a>
                         </li>
                         <li>
-                            <a href="#ajax/blacklist" data-toggle="ajax">Reporte de ventas</a>
+                            <a href="{{route('administrator.reportes')}}" data-toggle="ajax">Reporte de ventas</a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#ajax/ajustes" data-toggle="ajax">
-                        <i class="fa fa-cogs" aria-hidden="true"></i>
-                        <span>Ajustes</span>
-                    </a>
-                </li>
+                
                 <!-- begin sidebar minify button -->
                 <li>
                     <a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify">

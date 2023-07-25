@@ -72,3 +72,18 @@
 <script src="{{asset('js/print.min.js')}}"></script>
 <script src="{{asset('js/extra.js?t=1686105396')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.min.js" integrity="sha512-J9kWigtolF+Ur3ozrZwj18sLPTeAFNiwLxFHaXtmjKao7MZ1g3UWnTn8y1ChS48V2JM7ErQV2r1uMeMaplN+EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  $(document).ready(function() {
+    var currentLocation = window.location.href; // Obtiene la dirección actual del navegador
+
+   
+    if($('li:has(a[href="'+currentLocation+'"])').length>0){
+        $('li:has(a[href="'+currentLocation+'"])').addClass("active");
+        if(currentLocation!="{{ route('administrator.home') }}"){
+            $('li:has(a[href="{{ route('administrator.home') }}"])').removeClass("active");
+        }
+    }
+
+  });
+</script>

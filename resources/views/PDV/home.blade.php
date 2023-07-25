@@ -479,18 +479,18 @@
             success: function(response) {
                 var datosExistentes = table_productos.data().toArray();
                 var duplicado = datosExistentes.some(function(dato) {
-                    return dato.cod === response.codigo;
+                    return dato.cod === response?.codigo;
                 });
 
                 if(response?.id!=undefined && !duplicado){
                     table_productos.row.add({
-                                            "cod":response.codigo,
-                                            "descripcion":response.producto,
+                                            "cod":response?.codigo,
+                                            "descripcion":response?.producto,
                                             "precio":response.valor,
-                                            "cantidad":"<input value='1' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                            "impuesto":response.iva,
-                                            "existencia":response.cantidad,
-                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                            "cantidad":"<input value='1' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                            "impuesto":response?.iva,
+                                            "existencia":response?.cantidad,
+                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                             }).draw();
                   
                   $("#n-facturas").val(""); 
@@ -600,13 +600,13 @@
                           dataType: 'json',
                           success: function(response) {
                             table_productos.row.add({
-                                                    "cod":response.codigo,
-                                                    "descripcion":response.producto,
+                                                    "cod":response?.codigo,
+                                                    "descripcion":response?.producto,
                                                     "precio":element.valor,
-                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                                    "impuesto":response.iva,
-                                                    "existencia":response.cantidad,
-                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response?.iva,
+                                                    "existencia":response?.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                                     }).draw();
                             
                             $("#n-facturas").val(""); 
@@ -662,14 +662,15 @@
                           },
                           dataType: 'json',
                           success: function(response) {
+                            
                             table_productos.row.add({
-                                                    "cod":response.codigo,
-                                                    "descripcion":response.producto,
+                                                    "cod":response?.codigo,
+                                                    "descripcion":response?.producto,
                                                     "precio":element.precio_venta,
-                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                                    "impuesto":response.iva,
-                                                    "existencia":response.cantidad,
-                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response?.iva,
+                                                    "existencia":response?.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                                     }).draw();
                             
                             $("#n-facturas").val(""); 
@@ -724,13 +725,13 @@
                   dataType: 'json',
                   success: function(response) {
                     table_productos.row.add({
-                                            "cod":response.codigo,
-                                            "descripcion":response.producto,
+                                            "cod":response?.codigo,
+                                            "descripcion":response?.producto,
                                             "precio":element.precio_venta,
-                                            "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                            "impuesto":response.iva,
-                                            "existencia":response.cantidad,
-                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                            "cantidad":"<input value='"+element.cantidad+"' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                            "impuesto":response?.iva,
+                                            "existencia":response?.cantidad,
+                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                             }).draw();
                     
                     $("#n-facturas").val(""); 
@@ -804,13 +805,13 @@
                           dataType: 'json',
                           success: function(response) {
                             table_productos.row.add({
-                                                    "cod":response.codigo,
-                                                    "descripcion":response.producto,
+                                                    "cod":response?.codigo,
+                                                    "descripcion":response?.producto,
                                                     "precio":element.precio_venta,
-                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                                    "impuesto":response.iva,
-                                                    "existencia":response.cantidad,
-                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response?.iva,
+                                                    "existencia":response?.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                                     }).draw();
                             
                             $("#n-facturas").val(""); 
@@ -866,13 +867,13 @@
                           dataType: 'json',
                           success: function(response) {
                             table_productos.row.add({
-                                                    "cod":response.codigo,
-                                                    "descripcion":response.producto,
+                                                    "cod":response?.codigo,
+                                                    "descripcion":response?.producto,
                                                     "precio":element.precio_venta,
-                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                                    "impuesto":response.iva,
-                                                    "existencia":response.cantidad,
-                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                                    "cantidad":"<input value='"+element.cantidad+"' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                                    "impuesto":response?.iva,
+                                                    "existencia":response?.cantidad,
+                                                    "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                                     }).draw();
                             
                             $("#n-facturas").val(""); 
@@ -926,13 +927,13 @@
                   dataType: 'json',
                   success: function(response) {
                     table_productos.row.add({
-                                            "cod":response.codigo,
-                                            "descripcion":response.producto,
+                                            "cod":response?.codigo,
+                                            "descripcion":response?.producto,
                                             "precio":element.precio_venta,
-                                            "cantidad":"<input value='"+element.cantidad+"' id='"+response.codigo+"i' type='number' onChange='validaMax(\""+response.cantidad+"\",\""+response.codigo+"i\")' max='"+response.cantidad+"' min='0' style='max-width:50px'>",
-                                            "impuesto":response.iva,
-                                            "existencia":response.cantidad,
-                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response.codigo}")' class='fa fa-trash'></i></a>`
+                                            "cantidad":"<input value='"+element.cantidad+"' id='"+response?.codigo+"i' type='number' onChange='validaMax(\""+response?.cantidad+"\",\""+response?.codigo+"i\")' max='"+response?.cantidad+"' min='0' style='max-width:50px'>",
+                                            "impuesto":response?.iva,
+                                            "existencia":response?.cantidad,
+                                            "tools":`<a href='javascript:;'><i onclick='removeProducto("${response?.codigo}")' class='fa fa-trash'></i></a>`
                                             }).draw();
                     
                     $("#n-facturas").val(""); 
